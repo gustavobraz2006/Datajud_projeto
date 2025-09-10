@@ -2,6 +2,8 @@
 
 Projeto: Análise de Processos Judiciais
 
+
+
 Este projeto em C foi desenvolvido para ler, analisar e gerar estatísticas a partir de um arquivo CSV de processos judiciais (exemplo: TJDFT_filtrado.csv).
 
 O objetivo é extrair informações como:
@@ -18,6 +20,8 @@ Percentual de cumprimento da Meta 1 do CNJ;
 
 Geração de um novo CSV apenas com os processos julgados na Meta 1.
 
+
+
 Estrutura do Projeto
 .
 ├── main.c          # Arquivo principal: chama as funções e imprime resultados
@@ -25,7 +29,11 @@ Estrutura do Projeto
 ├── processos.h     # Cabeçalho com definições da struct e protótipos de funções
 └── TJDFT_filtrado.csv  # Arquivo de entrada (não incluído no repositório)
 
+
+
 Como funciona
+
+
 
 Leitura dos dados (LerDadosProcessos)
 
@@ -47,7 +55,11 @@ Geração de CSV (gerarCSVMeta1julgados)
 
 Cria um novo arquivo CSV contendo apenas os processos julgados da Meta 1.
 
+
+
 Exemplo de Saída
+
+
 
 Numero de processos: 15230
 Numero de processos com violência doméstica: 230
@@ -60,6 +72,8 @@ id do processo mais antigo: 123456
 Numero de dias entre a data de recebimento e a data resolvida do processo mais antigo: 320
 Percentual de cumprimento da Meta 1: 78.52%
 
+
 OBSERVAÇÃO!!!!
+
 
 O CSV de entrada deve estar no formato correto, com os campos separados por ;
