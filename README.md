@@ -41,13 +41,13 @@ O objetivo é extrair informações como:
 
 ## Exemplo de Saída
 
--Numero de processos: 15230
--Numero de processos com violência doméstica: 230
--Numero de processos com feminicídio: 12
--Numero de processos ambientais: 85
--Numero de processos com comunidades quilombolas: 3
--Numero de processos com comunidades indígenas: 9
--Numero de processos com crimes contra a infância: 45
--id do processo mais antigo: 123456
--Numero de dias entre a data de recebimento e a data resolvida do processo mais antigo: 320
+-Numero de processos: 15230 <br>
+-Numero de processos com violência doméstica: 230 <br>
+-Numero de processos com feminicídio: 12 <br>
+-Numero de processos ambientais: 85 <br>
+-Numero de processos com comunidades quilombolas: 3 <br>
+-Numero de processos com comunidades indígenas: 9 <br>
+-Numero de processos com crimes contra a infância: 45 <br>
+-id do processo mais antigo: 123456 <br>
+-Numero de dias entre a data de recebimento e a data resolvida do processo mais antigo: 320 <br>
 -Percentual de cumprimento da Meta 1: 78.52%
