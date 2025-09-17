@@ -22,7 +22,7 @@ typedef struct {
     int flag_indigenas;
     int flag_infancia;
 
-    int decisao;               // inteiro no CSV
+    char decisao[20];               // inteiro no CSV, mas eu manti como uma string 
     char dt_resolvido[11];     // formato YYYY-MM-DD
 
     // Campos extras

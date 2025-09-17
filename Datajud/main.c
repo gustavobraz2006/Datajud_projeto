@@ -5,11 +5,10 @@
 
 int main() {
 
-    Processos * P = LerDadosProcessos("TJDFT_amostra.csv");
+    Processos * P = LerDadosProcessos("TJDFT_filtrado.csv");
 
     printf("Numero de processos: %d\n", getnumProcessos(P));
-    printf("Id do ultimo orgão julgador do processo de id 1000000: %d\n", getUltimoOrgaoJulgador(P, 1000000));
-
+    printf("Id do ultimo orgão julgador do ultimo processo de id %d: %d\n", getidprocessoMaisAntigo(P), getUltimoOrgaoJulgador(P, getidprocessoMaisAntigo(P)));
 
     printf("Numero de processos com violência doméstica: %d\n", getviolenciadomestica(P));
     printf("Numero de processos com feminicídio: %d\n", getfeminicidios(P));
@@ -21,8 +20,18 @@ int main() {
 
 
     printf("id do processo mais antigo: %d\n", getidprocessoMaisAntigo(P));
-    printf("Numero de dias entre a data de recebimento e a data resolvida do processo mais antigo: %d\n", getDiasEntreDatas(P[0].dt_recebimento, P[0].dt_resolvido));
 
+    int idAntigo = getidprocessoMaisAntigo(P);
+    int idx = 0;
+    while (P[idx].id_processo != 0 && P[idx].id_processo != idAntigo) idx++;
+    if (P[idx].id_processo != 0 && strlen(P[idx].dt_resolvido) > 0) {
+    printf("Numero de dias entre recebimento e resolvido do mais antigo: %d\n",
+           getDiasEntreDatas(P[idx].dt_recebimento, P[idx].dt_resolvido));
+    } 
+    
+    else {
+    printf("Processo mais antigo não possui data de resolvido registrada.\n");
+    }
 
     printf("Percentual de cumprimento da Meta 1: %.2f%%\n", getcumprimentoMeta1(P));
     gerarCSVMeta1julgados(P, "processos_julgados_meta1.csv");

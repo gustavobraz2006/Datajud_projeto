@@ -25,7 +25,7 @@ Processos * LerDadosProcessos(char * NomeArquivo) {
         char tmp_mpum1[10], tmp_julgadom1[10], tmp_desm1[10], tmp_susm1[10];
 
         int n = fscanf(fp,
-            "%d;%49[^;];%9[^;];%99[^;];%49[^;];%9[^;];%d;%d;%d;%10[^;];%d;%d;%d;%d;%d;%d;%d;%d;%10[^;];%9[^;];%9[^;];%9[^;];%9[^;];%9[^;];%9[^;];%9[^;]\n",
+            "%d;%49[^;];%9[^;];%99[^;];%49[^;];%9[^;];%d;%d;%d;%10[^;];%d;%d;%d;%d;%d;%d;%d;%19[^;];%10[^;];%9[^;];%9[^;];%9[^;];%9[^;];%9[^;];%9[^;];%9[^;]\n",
             &P[i].id_processo,
             P[i].numero_sigilo,
             P[i].sigla_grau,
@@ -43,7 +43,7 @@ Processos * LerDadosProcessos(char * NomeArquivo) {
             &P[i].flag_quilombolas,
             &P[i].flag_indigenas,
             &P[i].flag_infancia,
-            &P[i].decisao,
+            P[i].decisao,
             P[i].dt_resolvido,
             tmp_cnm1,
             tmp_primeirasentm1,
@@ -56,7 +56,7 @@ Processos * LerDadosProcessos(char * NomeArquivo) {
         );
 
         if (n == EOF) break;
-        if (n != 26) continue; // ignora linhas inválidas
+        if (n < 26) continue; // ignora linhas inválidas
 
         // Converter campos numéricos temporários para int, trata vazio como 0
         P[i].cnm1 = strlen(tmp_cnm1) > 0 ? atoi(tmp_cnm1) : 0;
@@ -185,13 +185,21 @@ int getDiasEntreDatas(const char * dt_recebimento, const char * dt_resolvido) {
 
 
 float getcumprimentoMeta1(Processos * P) {
-    int totalProcessos = getnumProcessos(P);
-    int processosResolvidos = 0;
-    for (int i = 0; i < totalProcessos; i++) {
-        if (strlen(P[i].dt_resolvido) > 0) processosResolvidos++;
+    long cnm1 = 0, julgadom1 = 0, desm1 = 0, susm1 = 0;
+
+    int i = 0;
+    while (P[i].id_processo != 0) {
+        cnm1 += P[i].cnm1;
+        julgadom1 += P[i].julgadom1;
+        desm1 += P[i].desm1;
+        susm1 += P[i].susm1;
+        i++;
     }
-    if (totalProcessos == 0) return 0.0;
-    return (float)processosResolvidos / totalProcessos * 100.0;
+
+    long denominador = cnm1 + desm1 - susm1;
+    if (denominador <= 0) return 0.0;
+
+    return ((float)julgadom1 / denominador) * 100.0;
 }
 
 Processos * gerarCSVMeta1julgados(Processos * P, const char * NomeArquivoSaida) {
@@ -205,9 +213,9 @@ Processos * gerarCSVMeta1julgados(Processos * P, const char * NomeArquivoSaida) 
 
     int i = 0;
     while (P[i].id_processo != 0) {
-        if (P[i].julgadom1 == 1) {
+        if (P[i].julgadom1 > 0) {
             fprintf(fp,
-                "%d;%s;%s;%s;%s;%s;%d;%d;%d;%s;%d;%d;%d;%d;%d;%d;%d;%d;%s;%d;%d;%d;%d;%d;%d;%d;%d\n",
+                "%d;%s;%s;%s;%s;%s;%d;%d;%d;%s;%d;%d;%d;%d;%d;%d;%d;%s;%s;%d;%d;%d;%d;%d;%d;%d;%d\n",
                 P[i].id_processo,
                 P[i].numero_sigilo,
                 P[i].sigla_grau,
